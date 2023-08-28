@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <!--! Tailwind CSS and DaisyUI  -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@3.6.2/dist/full.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!--! CSS  -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="text-center mt-6">
+      <h1 class="text-4xl font-bold">AI Universe Hub</h1>
+      <button class="text-white font-semibold bg-primary p-2 rounded-lg mt-5">
+        Sort by Date
+      </button>
+    </header>
+
+    <main>
+      <!--! Cards Section  -->
+      <section>
+        <div id="cardsContainer">
+          <!-- <div class="card w-96 bg-base-100 shadow-xl">
+                    <figure><img src="/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Shoes" /></figure>
+                    <div class="card-body">
+                      <h2 class="card-title">Shoes!</h2>
+                      <p>If a dog chews shoes whose shoes does he choose?</p>
+                      <div class="card-actions justify-end">
+                        <button class="btn btn-primary">Buy Now</button>
+                      </div>
+                    </div>
+                  </div> -->
+        </div>
+      </section>
+      <!--! See more Section  -->
+      <section>
+        <div id="seeMoreBtnContainer" class="text-center hidden">
+          <button
+            onclick="handleSeeMore()"
+            class="bg-primary p-2 my-5 text-white font-bold rounded-lg"
+          >
+            See More
+          </button>
+        </div>
+      </section>
+
+      <!--! Modal Section  -->
+      <section>
+        <div id="modalContainer">
+          <!-- You can open the modal using ID.showModal() method -->
+
+          <!-- You can open the modal using ID.showModal() method -->
+          
+          <dialog id="showDetails" class="modal w-[700px]">
+            <form method="dialog" class="modal-box">
+              <button
+                class="btn bg-primary btn-sm btn-circle btn-ghost absolute right-0 top-0"
+              >
+                ✕
+              </button>
+              <!--? Modal contents container  -->
+              <div class="flex gap-4" id="modalContentsContainer">
+                <!-- Modal description container  -->
+                <div  id="modalDesContainer" class="flex-1  ">
+                    <p id="modalDes"></p>
+                    <!-- pricing container  -->
+                    <div  id="modalPricingContainer" class="flex gap-4 text-center mt-3">
+                        
+                    </div>
+                    <!-- features and integration container  -->
+                    <div id="modalFeaturesContainer" class="mt-4">
+                        <!-- features  -->
+                        <div id="modalFeaturesContainer" >
+                            
+                        </div>
+
+                        <!-- Integration  -->
+                        <div id="integartionContainer">
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Modal Image container  -->
+                <div id="modalImageContainer" class="flex-1">
+                   <div id="img"></div>
+
+                </div>
+
+              </div>
+
+            </form>
+          </dialog>
+        </div>
+      </section>
+    </main>
+
+    <!--! JS Script  -->
+    <script src="/js/index.js"></script>
+  </body>
+</html>
