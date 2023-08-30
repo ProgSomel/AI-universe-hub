@@ -1,11 +1,12 @@
-const loadToolsData = async (seeMore) => {
+const loadToolsData = async (seeMore, sortByDate) => {
   const res = await fetch("https://openapi.programming-hero.com/api/ai/tools");
   const data = await res.json();
   const tools = data.data.tools;
-  displayTools(tools, seeMore);
+  displayTools(tools, seeMore, sortByDate);
 };
 
-const displayTools = (tools, seeMore) => {
+//! Display Tools 
+const displayTools = (tools, seeMore, sortByDate) => {
   const toolsContainer = document.getElementById("cardsContainer");
 
   const seeMoreContainer = document.getElementById("seeMoreBtnContainer");
@@ -20,7 +21,21 @@ const displayTools = (tools, seeMore) => {
   if(!seeMore) {
     tools = tools.slice(0, 6);
   }
+  
+  const sortByDateItems =(a, b) => {
+    const dateA = new Date(a.published_in);
+    const dateB = new Date(b.published_in);
 
+    if(dateA > dateB) return 1;
+    else if(dateA < dateB) return -1;
+    else return 0;
+
+  }
+
+  if(sortByDate) {
+    tools.sort(sortByDateItems);
+  }
+  
   toolsContainer.classList = `grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-5 `;
 
   toolsContainer.textContent = "";
@@ -30,13 +45,13 @@ const displayTools = (tools, seeMore) => {
     toolCard.classList = `border rounded-lg p-3`;
 
     toolCard.innerHTML = `
-    <figure><img class="rounded-lg" src="${tool.image}" alt="Shoes" /></figure>
+    <figure><img class="rounded-lg" src="${tool?.image}" alt="Shoes" /></figure>
     <div class="card-body">
       <div id="features-container">
         <h1 class="text-2xl font-bold mb-3">Features</h1>
 
         <ol class="list-decimal ml-4">
-        ${tool.features.map((feature) => `<li>${feature}</li>`).join("")}
+        ${tool?.features.map((feature) => `<li>${feature}</li>`).join("")}
         </ol>
           
       </div>
@@ -70,11 +85,45 @@ const displayTools = (tools, seeMore) => {
   });
 };
 
+
+let sortByDateClicked = false ;
+let seeMoreClicked = false ;
+
+//! Sort By Date Button 
+const handleSortByDate = () => {
+  sortByDateClicked = true ;
+  if(sortByDateClicked) {
+    if(seeMoreClicked) {
+      loadToolsData(true, true) ;
+    }
+    else {
+      loadToolsData(false, true) ;
+    }
+  }
+}
+// const SortByDate = (a, b) => {
+//   const dateA = new Date(a.published_in);
+//   const dateB = new Date(b.published_in);
+//   if(dateA > dateB) return 1;
+//   else if(dateA < dateB) return -1;
+//   else return 0;
+// }
+
+
 //! See More Button 
 const handleSeeMore = () => {
-    loadToolsData(true);
+  seeMoreClicked = true ;
+  if(seeMoreClicked) {
+    if(sortByDateClicked) {
+      loadToolsData(true, true);
+    }
+    else {
+      loadToolsData(true, false);
+    }
+  }
 
 }
+
 
 //! Modal 
 const handleShowDetails = async (id) => {
@@ -84,6 +133,7 @@ const handleShowDetails = async (id) => {
     const details = data.data;
     showModal(details);
 }
+
 
 const showModal = (details) => {
     
@@ -135,8 +185,6 @@ const showModal = (details) => {
 
 
 }
-
-
 loadToolsData();
 
 
